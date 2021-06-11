@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="row" style="margin-top: 10%; width: 95%; height: 500px;" >
+            <div class="offset-4 col-4 shadow p-3 mb-5 bg-light rounded">
+                <div class="row" style="max-height: 30vh!important;">
+                 <div class="col-12" >
+                    <img src="/images/sso-logo.png" style="max-height: 30vh!important;" />
+                 </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table style="margin-left: 25%;">
+                            <tr>
+                                <td>
+                                    <label class="mb-3 mt-3">Email</label>
+                                </td>
+                                <td>
+                                    <input class="mb-3" type="text" id="email"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label  class="mb-3" >Password</label>
+                                </td>
+                                <td>
+                                    <input  class="mb-3" type="password" id="password" />
+                                </td>
+                            </tr>
+        
+                            <tr>
+                                <td>
+                                    <button class="m-3 btn btn-primary" id=login >Login</button>
+                                </td>
+                                <td>
+                                    <button class="m-3 btn btn-danger" id=register >Register</button>
+                                </td>
+                            </tr>
+                            <tr id="errormessage">
+                                <td colspan="2">
+                                   <label style="color: red;">Username and password is not correct.</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $( document ).ready(function() {
+                $("#errormessage").hide();
+                $("#register").click(function(){
+                    window.location.href = "/register";
+                });
+
+                $("#login").click(function(){
+                    $.ajax({
+                        type:"POST",
+                        //url:`/signin?redirectURL=http://www.youtube.com/`,
+                        url:"/signin",
+                        crossDomain:true,
+                        data:{email:$("#email").val(),
+                        password:$("#password").val()},
+                        success:function(result){
+                            if(result.includes("http") || result.includes("https"))
+                            {
+                            window.location.href = result
+                            }
+                            else
+                            {
+                                console.log(result);
+                            }
+                        },
+                        error:function(error){
+                            $("#errormessage").show();
+                        }
+                    });
+                    
+                });
+
+                $("#password").keypress(function(e){
+                    var key = e.which;
+                    if(key == 13)
+                    {
+                        $("#login").click();
+                    }
+                })
+
+               });
+
+        </script>
+    </body>
+</html>

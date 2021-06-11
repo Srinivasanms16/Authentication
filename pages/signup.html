@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="row" style="margin-top: 10%; width: 95%; height: 500px;" >
+            <div class="offset-4 col-4 shadow p-3 mb-5 bg-light rounded">
+                <div class="row" style="max-height: 30vh!important;">
+                 <div class="col-12" >
+                    <img src="/images/logo-sign.png" style="max-height: 30vh!important; margin-left: 35%;" />
+                 </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table style="margin-left: 25%;">
+                            <tr>
+                                <td>
+                                    <label class="mt-3">First Name</label>
+                                </td>
+                                <td>
+                                    <input class="mt-3" type="text" id="fname"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="mt-3">Last Name</label>
+                                </td>
+                                <td>
+                                    <input class="mt-3" type="text" id="lname"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="mt-3">email</label>
+                                </td>
+                                <td>
+                                    <input class="mt-3" type="text" id="email"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label  class="mt-3" >Password</label>
+                                </td>
+                                <td>
+                                    <input  class="mt-3" type="password" id="password" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" >
+                                    <button class="btn btn-danger mt-3" id="register" style="margin-left: 35%;">Register</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                    $("#register").on("click",function(){
+                        $.ajax({
+                            type:"POST",
+                            url:"/signup",
+                            crossDomain:true,
+                            data: {             fname:$("#fname").val(), 
+                                                lname: $("#lname").val(),
+                                                email:$("#email").val(),
+                                                password:$("#password").val() },
+                            success:function(){
+                                alert("Added successfully");
+                                window.location.href = "/";
+                            },
+                            error:function(){
+                                alert("issue in adding user");
+                            }
+                        });
+
+                    });
+            });
+        </script>
+    </body>
+</html>
