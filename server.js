@@ -137,7 +137,7 @@ function servermethods(client)
     server.use((error,req,res,next)=>{
        res.status(500).send("Issue in server");
     })
-    server.listen(3000,()=>{
+    server.listen(process.env.PORT || 3000,()=>{
         console.log(`Server is listening in port 3000 !`)
     })
 }
